@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114958068612480306}
   - component: {fileID: 70558817267434280}
   - component: {fileID: 50435840088435018}
-  - component: {fileID: 114375098932616746}
+  - component: {fileID: 114469649560764916}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -83,7 +83,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1175676853387050}
   m_BodyType: 0
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
@@ -142,7 +142,7 @@ MonoBehaviour:
     i15: 232
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114375098932616746
+--- !u!114 &114469649560764916
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
