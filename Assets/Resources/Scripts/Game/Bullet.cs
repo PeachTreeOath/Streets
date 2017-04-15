@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : MonoBehaviour
+{
 
 
-	private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
         Health health = col.GetComponent<Health>();
         if (health != null)
@@ -13,5 +14,5 @@ public class Bullet : MonoBehaviour {
             health.TakeDamage(10);
         }
 
-            }
+    }
 }
