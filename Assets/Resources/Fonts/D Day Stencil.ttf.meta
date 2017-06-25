@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 3dca7dd2335a236409f049e2297ee7f8
+timeCreated: 1492388437
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: D Day Stencil
+  fontNames:
+  - D Day Stencil
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

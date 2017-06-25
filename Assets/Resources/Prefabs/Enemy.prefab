@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02a8783aaa23314b9fcc0a44952e850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyOnDeath: 1
   healthBar: {fileID: 224259334803103308}
   currentHealth: 100
 --- !u!114 &114250022372519248
