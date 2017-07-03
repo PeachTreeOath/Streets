@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
 public class PlayerController : NetworkBehaviour
@@ -10,10 +8,11 @@ public class PlayerController : NetworkBehaviour
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
 
-    // Use this for initialization
+    private Weapon weapon;
+
     void Start()
     {
-        CmdSpawnBullet();
+        weapon = GetComponentInChildren<Weapon>();
     }
 
     // Update is called once per frame
@@ -24,9 +23,13 @@ public class PlayerController : NetworkBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButton("Fire1"))
         {
-            CmdFire();
+            GameObject bullet = weapon.AttemptShot();
+            if (bullet)
+            {
+                CmdFire(bullet);
+            }
         }
 
         float xSpeed = Input.GetAxis("Horizontal");
@@ -44,21 +47,9 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    private void CmdSpawnBullet()
+    private void CmdFire(GameObject bullet)
     {
-        GameObject bullet = Instantiate<GameObject>(bulletPrefab);
-        
         NetworkServer.Spawn(bullet);
-    }
-
-    [Command]
-    private void CmdFire()
-    {
-        GameObject bullet = Instantiate<GameObject>(bulletPrefab, bulletSpawn.position, bulletSpawn.rotation);
-        bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(6, 0);
-
-        NetworkServer.Spawn(bullet);
-
         Destroy(bullet, 2);
     }
 }
