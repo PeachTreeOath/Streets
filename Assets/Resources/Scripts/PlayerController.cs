@@ -9,14 +9,20 @@ public class PlayerController : NetworkBehaviour
     public Transform bulletSpawn;
 
     private Rigidbody2D rBody;
+    private Collider2D mCollider;
     private Weapon weapon;
+
+    private ContactFilter2D interactableFilter;
 
     void Start()
     {
         rBody = GetComponent<Rigidbody2D>();
+        mCollider = GetComponent<Collider2D>();
         weapon = GetComponentInChildren<Weapon>();
+        interactableFilter = new ContactFilter2D();
+        interactableFilter.useTriggers = true;
 
-        if(isLocalPlayer)
+        if (isLocalPlayer)
         {
             Camera.main.GetComponent<CameraFollow>().SetFollow(gameObject);
         }
@@ -39,9 +45,9 @@ public class PlayerController : NetworkBehaviour
             }
         }
 
-        if(Input.GetButton("Interact"))
+        if (Input.GetButton("Interact"))
         {
-
+            Interact();
         }
 
         float xSpeed = Input.GetAxis("Horizontal");
@@ -63,5 +69,22 @@ public class PlayerController : NetworkBehaviour
     {
         NetworkServer.Spawn(bullet);
         Destroy(bullet, 2);
+    }
+
+    private void Interact()
+    {
+        Collider2D[] overlaps = new Collider2D[8];
+        int numResults = mCollider.OverlapCollider(interactableFilter, overlaps);
+        if (numResults > 0)
+        {
+            for (int i = 0; i < numResults; i++)
+            {
+                Interactable interactable = overlaps[i].GetComponent<Interactable>();
+                if (interactable != null)
+                {
+                    interactable.Interact();
+                }
+            }
+        }
     }
 }

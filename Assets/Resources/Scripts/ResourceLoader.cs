@@ -12,6 +12,7 @@ public class ResourceLoader : Singleton<ResourceLoader>
     public GameObject buildingFab;
     public GameObject hqFab;
     public GameObject wallFab;
+    public GameObject doorFab;
     public GameObject floorFab;
     public GameObject streetFab;
 
@@ -31,7 +32,8 @@ public class ResourceLoader : Singleton<ResourceLoader>
        // buildingFab = Resources.Load<GameObject>("Prefabs/Building");
        // hqFab = Resources.Load<GameObject>("Prefabs/HQ");
         wallFab = Resources.Load<GameObject>("Prefabs/Wall");
-       // floorFab = Resources.Load<GameObject>("Prefabs/Floor");
-       // streetFab = Resources.Load<GameObject>("Prefabs/Street");
+        doorFab = Resources.Load<GameObject>("Prefabs/Door");
+        // floorFab = Resources.Load<GameObject>("Prefabs/Floor");
+        // streetFab = Resources.Load<GameObject>("Prefabs/Street");
     }
 }

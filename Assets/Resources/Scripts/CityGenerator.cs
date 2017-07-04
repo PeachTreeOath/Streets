@@ -42,6 +42,7 @@ public class CityGenerator : MonoBehaviour
 
     private void LayoutBuilding(float xOffset, float yOffset)
     {
+        int doorIndex = buildingSize / 2;
         for (int i = 0; i < buildingSize; i++)
         {
             for (int j = 0; j < buildingSize; j++)
@@ -49,18 +50,26 @@ public class CityGenerator : MonoBehaviour
                 // Layout walls along the edges
                 if (i == 0 || j == 0 || i == buildingSize - 1 || j == buildingSize - 1)
                 {
-                    PlaceWall(i, j, tileSize, localOffset, xOffset, yOffset);
+                    // Lay doors in the middle of the walls
+                    if (i == doorIndex || j == doorIndex)
+                    {
+                        PlaceTile(ResourceLoader.instance.doorFab, i, j, localOffset, xOffset, yOffset);
+                    }
+                    else
+                    {
+                        PlaceTile(ResourceLoader.instance.wallFab, i, j, localOffset, xOffset, yOffset);
+                    }
                 }
             }
         }
     }
 
-    private void PlaceWall(int i, int j, float wallSize, float localOffset, float globalOffsetX, float globalOffsetY)
+    private void PlaceTile(GameObject tilePrefab, int i, int j, float localOffset, float globalOffsetX, float globalOffsetY)
     {
-        float xPos = globalOffsetX - localOffset + i * wallSize + wallSize / 2;
-        float yPos = globalOffsetY - localOffset + j * wallSize + wallSize / 2;
+        float xPos = globalOffsetX - localOffset + i * tileSize + tileSize / 2;
+        float yPos = globalOffsetY - localOffset + j * tileSize + tileSize / 2;
 
-        GameObject newWall = Instantiate(ResourceLoader.instance.wallFab, this.transform, false);
-        newWall.transform.localPosition = new Vector2(xPos, yPos);
+        GameObject newTile = Instantiate(tilePrefab, this.transform, false);
+        newTile.transform.localPosition = new Vector2(xPos, yPos);
     }
 }
