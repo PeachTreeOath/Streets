@@ -47,7 +47,7 @@ public class Weapon : NetworkBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 firePos = (Vector2)firePoint.position;
 
-        GameObject bullet = Instantiate<GameObject>(ResourceLoader.instance.bullet, firePoint.position, firePoint.rotation);
+        GameObject bullet = Instantiate<GameObject>(ResourceLoader.instance.bulletFab, firePoint.position, firePoint.rotation);
         bullet.GetComponent<Rigidbody2D>().velocity = (mousePos - firePos) * bulletSpeed;
 
         return bullet;

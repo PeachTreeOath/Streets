@@ -1,0 +1,19 @@
+﻿using UnityEngine;
+
+public class CameraFollow : MonoBehaviour
+{
+
+    private GameObject followObj;
+
+    public void SetFollow(GameObject obj)
+    {
+        followObj = obj;
+    }
+
+    void LateUpdate()
+    {
+        Vector2 followPos = followObj.transform.position;
+        transform.position = new Vector3(followPos.x, followPos.y, transform.position.z);
+    }
+
+}
