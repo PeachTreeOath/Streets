@@ -23,12 +23,12 @@ public class Weapon : NetworkBehaviour
     /// If able to create a bullet, instantiate one locally and return it.
     /// </summary>
     /// <returns></returns>
-    public GameObject AttemptShot()
+    public GameObject AttemptShot(PlayerController player)
     {
         // Single shot weapon
         if (fireRate == 0 && Input.GetButtonDown("Fire1"))
         {
-            return Shoot();
+            return Shoot(player);
         }
         // Automatic weapon
         else
@@ -36,19 +36,20 @@ public class Weapon : NetworkBehaviour
             if (Time.time > timeToFire)
             {
                 timeToFire = Time.time + 1 / fireRate;
-                return Shoot();
+                return Shoot(player);
             }
         }
         return null;
     }
 
-    private GameObject Shoot()
+    private GameObject Shoot(PlayerController player)
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 firePos = (Vector2)firePoint.position;
 
         GameObject bullet = Instantiate<GameObject>(ResourceLoader.instance.bulletFab, firePoint.position, firePoint.rotation);
         bullet.GetComponent<Rigidbody2D>().velocity = (mousePos - firePos) * bulletSpeed;
+        bullet.GetComponent<Bullet>().playerNum = player.playerNum;
 
         return bullet;
     }

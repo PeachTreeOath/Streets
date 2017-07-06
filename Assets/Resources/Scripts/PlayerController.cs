@@ -4,8 +4,9 @@ using UnityEngine.Networking;
 public class PlayerController : NetworkBehaviour
 {
 
+    public int playerNum;
+
     public float speed = 5f;
-    public GameObject bulletPrefab;
     public Transform bulletSpawn;
 
     private Rigidbody2D rBody;
@@ -13,6 +14,13 @@ public class PlayerController : NetworkBehaviour
     private Weapon weapon;
 
     private ContactFilter2D interactableFilter;
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+
+        playerNum = GameManager.instance.GetCurrentPlayerNum();
+    }
 
     void Start()
     {
@@ -38,7 +46,7 @@ public class PlayerController : NetworkBehaviour
 
         if (Input.GetButton("Fire1"))
         {
-            GameObject bullet = weapon.AttemptShot();
+            GameObject bullet = weapon.AttemptShot(this);
             if (bullet)
             {
                 CmdFire(bullet);
