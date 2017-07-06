@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class GameManager : NetworkBehaviour
+public class AIDirector : NetworkBehaviour
 {
 
-    [SyncVar]
-    public int currentPlayerNum;
-
-    public static GameManager instance;
+    public static AIDirector instance;
 
     protected virtual void Awake()
     {
@@ -25,11 +22,7 @@ public class GameManager : NetworkBehaviour
 
     void Start()
     {
-        Cursor.visible = false;
+       
     }
 
-    public int GetCurrentPlayerNum()
-    {
-        return currentPlayerNum++;
-    }
 }

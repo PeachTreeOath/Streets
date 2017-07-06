@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class Bullet : MonoBehaviour
+public class Bullet : NetworkBehaviour
 {
     
     public int playerNum;
@@ -25,7 +26,7 @@ public class Bullet : MonoBehaviour
 
         if(col.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
-            Destroy(gameObject);
+            NetworkServer.Destroy(gameObject);
         }
     }
 }
