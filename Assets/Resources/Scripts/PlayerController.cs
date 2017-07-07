@@ -19,7 +19,7 @@ public class PlayerController : NetworkBehaviour
     {
         base.OnStartClient();
 
-        playerNum = GameManager.instance.GetCurrentPlayerNum();
+        playerNum = GameManager.instance.RegisterPlayer(this);
     }
 
     void Start()

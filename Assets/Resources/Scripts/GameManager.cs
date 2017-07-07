@@ -9,6 +9,8 @@ public class GameManager : NetworkBehaviour
     [SyncVar]
     public int currentPlayerNum;
 
+    public Dictionary<int, PlayerController> playerList;
+
     public static GameManager instance;
 
     protected virtual void Awake()
@@ -21,6 +23,8 @@ public class GameManager : NetworkBehaviour
         {
             Destroy(gameObject);
         }
+
+        playerList = new Dictionary<int, PlayerController>();
     }
 
     void Start()
@@ -28,8 +32,11 @@ public class GameManager : NetworkBehaviour
         Cursor.visible = false;
     }
 
-    public int GetCurrentPlayerNum()
+    public int RegisterPlayer(PlayerController newPlayer)
     {
-        return currentPlayerNum++;
+        currentPlayerNum++;
+        playerList.Add(currentPlayerNum, newPlayer);
+
+        return currentPlayerNum;
     }
 }
