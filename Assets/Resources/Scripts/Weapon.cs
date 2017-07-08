@@ -48,7 +48,7 @@ public class Weapon : NetworkBehaviour
         Vector2 firePos = (Vector2)firePoint.position;
 
         GameObject bullet = Instantiate<GameObject>(ResourceLoader.instance.bulletFab, firePoint.position, firePoint.rotation);
-        bullet.GetComponent<Rigidbody2D>().velocity = (mousePos - firePos) * bulletSpeed;
+        bullet.GetComponent<Rigidbody2D>().velocity = Vector3.Normalize(mousePos - firePos) * bulletSpeed;
         bullet.GetComponent<Bullet>().playerNum = player.playerNum;
 
         return bullet;

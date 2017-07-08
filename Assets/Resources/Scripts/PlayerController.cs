@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Networking;
 
 public class PlayerController : NetworkBehaviour
@@ -11,6 +12,7 @@ public class PlayerController : NetworkBehaviour
 
     private Rigidbody2D rBody;
     private Collider2D mCollider;
+
     private Weapon weapon;
 
     private ContactFilter2D interactableFilter;
@@ -90,9 +92,16 @@ public class PlayerController : NetworkBehaviour
                 Interactable interactable = overlaps[i].GetComponent<Interactable>();
                 if (interactable != null)
                 {
-                    interactable.Interact();
+                    interactable.Interact(this);
                 }
             }
         }
+    }
+
+    public void EquipWeapon(Weapon newWeapon)
+    {
+        Destroy(weapon);
+        newWeapon.transform.SetParent(transform);
+        weapon = newWeapon;
     }
 }
