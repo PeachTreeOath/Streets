@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Door : MonoBehaviour, Interactable
+public class Door : MonoBehaviour, IInteractable
 {
     public void Interact(PlayerController player)
     {

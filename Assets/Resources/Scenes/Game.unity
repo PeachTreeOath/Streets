@@ -898,6 +898,12 @@ Prefab:
       propertyPath: bulletSpeed
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 212798146976300724, guid: 2ee89ff5f12b5644b977ad1267783931,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a835e2741fe86424ea168d60c61fdd5d,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ee89ff5f12b5644b977ad1267783931, type: 2}
   m_IsPrefabParent: 0

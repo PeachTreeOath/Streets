@@ -1,9 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class Weapon : NetworkBehaviour
+public class Weapon : MonoBehaviour, IInventoryItem
 {
 
     public float fireRate = 0;
@@ -52,5 +52,10 @@ public class Weapon : NetworkBehaviour
         bullet.GetComponent<Bullet>().playerNum = player.playerNum;
 
         return bullet;
+    }
+
+    public InventoryType GetInventoryType()
+    {
+        return InventoryType.WEAPON;
     }
 }

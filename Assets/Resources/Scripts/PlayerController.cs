@@ -9,12 +9,10 @@ public class PlayerController : NetworkBehaviour
 
     public float speed = 5f;
     public Transform bulletSpawn;
+    private Inventory inventory;
 
     private Rigidbody2D rBody;
     private Collider2D mCollider;
-
-    private Weapon weapon;
-
     private ContactFilter2D interactableFilter;
 
     public override void OnStartClient()
@@ -28,7 +26,6 @@ public class PlayerController : NetworkBehaviour
     {
         rBody = GetComponent<Rigidbody2D>();
         mCollider = GetComponent<Collider2D>();
-        weapon = GetComponentInChildren<Weapon>();
         interactableFilter = new ContactFilter2D();
         interactableFilter.useTriggers = true;
 
@@ -48,10 +45,14 @@ public class PlayerController : NetworkBehaviour
 
         if (Input.GetButton("Fire1"))
         {
-            GameObject bullet = weapon.AttemptShot(this);
-            if (bullet)
+            Weapon currWeapon = inventory.GetWeapon();
+            if (currWeapon != null)
             {
-                CmdFire(bullet);
+                GameObject bullet = currWeapon.AttemptShot(this);
+                if (bullet)
+                {
+                    CmdFire(bullet);
+                }
             }
         }
 
@@ -89,7 +90,7 @@ public class PlayerController : NetworkBehaviour
         {
             for (int i = 0; i < numResults; i++)
             {
-                Interactable interactable = overlaps[i].GetComponent<Interactable>();
+                IInteractable interactable = overlaps[i].GetComponent<IInteractable>();
                 if (interactable != null)
                 {
                     interactable.Interact(this);
@@ -98,10 +99,8 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    public void EquipWeapon(Weapon newWeapon)
+    public bool EquipItem(IInventoryItem newItem)
     {
-        Destroy(weapon);
-        newWeapon.transform.SetParent(transform);
-        weapon = newWeapon;
+        return inventory.AddToInventory(newItem);
     }
 }
