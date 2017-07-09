@@ -9,4 +9,9 @@ public static class VectorExtensions {
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
         return q;
     }
+
+    public static Vector2 Rotate(this Vector2 v, float degrees)
+    {
+        return Quaternion.Euler(0, 0, degrees) * v;
+    }
 }

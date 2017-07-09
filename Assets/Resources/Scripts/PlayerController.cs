@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class PlayerController : NetworkBehaviour
 {
 
-    public int playerNum;
 
     public float speed = 5f;
-    public Transform bulletSpawn;
-    private Inventory inventory;
 
+    public int playerNum;
+    public Transform firePoint;
+
+    private Inventory inventory;
     private Rigidbody2D rBody;
     private Collider2D mCollider;
     private ContactFilter2D interactableFilter;
@@ -24,6 +26,7 @@ public class PlayerController : NetworkBehaviour
 
     void Start()
     {
+        firePoint = transform.Find("FirePoint");
         rBody = GetComponent<Rigidbody2D>();
         mCollider = GetComponent<Collider2D>();
         interactableFilter = new ContactFilter2D();
@@ -48,8 +51,8 @@ public class PlayerController : NetworkBehaviour
             Weapon currWeapon = inventory.GetWeapon();
             if (currWeapon != null)
             {
-                GameObject bullet = currWeapon.AttemptShot(this);
-                if (bullet)
+                List<GameObject> bullet = currWeapon.AttemptShot(this);
+                if (bullet != null)
                 {
                     CmdFire(bullet);
                 }
@@ -76,10 +79,13 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    private void CmdFire(GameObject bullet)
+    private void CmdFire(List<GameObject> bulletList)
     {
-        NetworkServer.Spawn(bullet);
-        Destroy(bullet, 2);
+        foreach (GameObject bullet in bulletList)
+        {
+            NetworkServer.Spawn(bullet);
+            Destroy(bullet, 2);
+        }
     }
 
     private void Interact()
