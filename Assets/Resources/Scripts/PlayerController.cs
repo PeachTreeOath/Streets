@@ -27,6 +27,7 @@ public class PlayerController : NetworkBehaviour
     void Start()
     {
         firePoint = transform.Find("FirePoint");
+        inventory = GetComponent<Inventory>();
         rBody = GetComponent<Rigidbody2D>();
         mCollider = GetComponent<Collider2D>();
         interactableFilter = new ContactFilter2D();
@@ -36,6 +37,8 @@ public class PlayerController : NetworkBehaviour
         {
             Camera.main.GetComponent<CameraFollow>().SetFollow(gameObject);
         }
+
+        EquipStartingItems();
     }
 
     // Update is called once per frame
@@ -51,17 +54,30 @@ public class PlayerController : NetworkBehaviour
             Weapon currWeapon = inventory.GetWeapon();
             if (currWeapon != null)
             {
-                List<GameObject> bullet = currWeapon.AttemptShot(this);
-                if (bullet != null)
+                List<GameObject> bulletList = currWeapon.AttemptShot(this);
+                if (bulletList != null)
                 {
-                    CmdFire(bullet);
+                    foreach (GameObject bullet in bulletList)
+                    {
+                        CmdFire(bullet);
+                    }
                 }
             }
         }
 
-        if (Input.GetButton("Interact"))
+        if (Input.GetButtonDown("Interact"))
         {
             Interact();
+        }
+
+        if (Input.GetButtonDown("SwapSpare1"))
+        {
+            inventory.SwapSpare1();
+        }
+
+        if (Input.GetButtonDown("SwapSpare2"))
+        {
+            inventory.SwapSpare2();
         }
 
         float xSpeed = Input.GetAxis("Horizontal");
@@ -78,14 +94,16 @@ public class PlayerController : NetworkBehaviour
         GetComponent<SpriteRenderer>().material.color = Color.blue;
     }
 
-    [Command]
-    private void CmdFire(List<GameObject> bulletList)
+    public bool EquipItem(IInventoryItem newItem)
     {
-        foreach (GameObject bullet in bulletList)
-        {
-            NetworkServer.Spawn(bullet);
-            Destroy(bullet, 2);
-        }
+        return inventory.AddToInventory(newItem);
+    }
+
+    [Command]
+    private void CmdFire(GameObject bullet)
+    {
+        NetworkServer.Spawn(bullet);
+        Destroy(bullet, 2);
     }
 
     private void Interact()
@@ -105,8 +123,9 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    public bool EquipItem(IInventoryItem newItem)
+    private void EquipStartingItems()
     {
-        return inventory.AddToInventory(newItem);
+        Instantiate(ResourceLoader.instance.pistolPickupFab).GetComponent< IInteractable>().Interact(this);
     }
+
 }

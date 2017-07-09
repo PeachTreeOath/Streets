@@ -16,6 +16,9 @@ public class ResourceLoader : Singleton<ResourceLoader>
     public GameObject floorFab;
     public GameObject streetFab;
 
+    public GameObject pistolPickupFab;
+    public GameObject shotgunPickupFab;
+
     protected override void Awake()
     {
         base.Awake();
@@ -35,5 +38,8 @@ public class ResourceLoader : Singleton<ResourceLoader>
         doorFab = Resources.Load<GameObject>("Prefabs/Door");
         // floorFab = Resources.Load<GameObject>("Prefabs/Floor");
         // streetFab = Resources.Load<GameObject>("Prefabs/Street");
+
+        pistolPickupFab = Resources.Load<GameObject>("Prefabs/Pickups/PistolPickup");
+        shotgunPickupFab = Resources.Load<GameObject>("Prefabs/Pickups/ShotgunPickup");
     }
 }

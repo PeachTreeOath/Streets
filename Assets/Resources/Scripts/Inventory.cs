@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
     {
         InventoryType type = item.GetInventoryType();
         bool itemAdded = false;
-
+        int itemAddedPosition = 0;
         switch (type)
         {
             case InventoryType.WEAPON:
@@ -22,16 +22,19 @@ public class Inventory : MonoBehaviour
                 {
                     weapon = (Weapon)item;
                     itemAdded = true;
+                    itemAddedPosition = 1;
                 }
                 else if (spare1 == null)
                 {
                     spare1 = item;
                     itemAdded = true;
+                    itemAddedPosition = 3;
                 }
                 else if (spare2 == null)
                 {
                     spare2 = item;
                     itemAdded = true;
+                    itemAddedPosition = 4;
                 }
                 break;
             case InventoryType.TOOL:
@@ -39,32 +42,62 @@ public class Inventory : MonoBehaviour
                 {
                     tool = (Tool)item;
                     itemAdded = true;
+                    itemAddedPosition = 2;
                 }
                 else if (spare1 == null)
                 {
                     spare1 = item;
                     itemAdded = true;
+                    itemAddedPosition = 3;
                 }
                 else if (spare2 == null)
                 {
                     spare2 = item;
                     itemAdded = true;
+                    itemAddedPosition = 4;
                 }
                 break;
+        }
+        if (itemAdded)
+        {
+            EquipItem(item);
+            UIManager.instance.UpdateInventoryImage(itemAddedPosition, item.GetItemSprite());
         }
         return itemAdded;
     }
 
-    public void EquipNewWeapon(Weapon newWeapon)
+    public void EquipItem(IInventoryItem newItem)
     {
-        Destroy(weapon.gameObject);
-        EquipWeapon(newWeapon);
+        newItem.SetParent(transform);
     }
 
-    public void EquipWeapon(Weapon newWeapon)
+    public void SwapSpare1()
     {
-        newWeapon.transform.SetParent(transform);
-        weapon = newWeapon;
+        if(spare1 != null)
+        {
+            switch(spare1.GetInventoryType())
+            {
+                case InventoryType.WEAPON:
+                    IInventoryItem oldWeaponTemp = weapon;
+                    IInventoryItem newWeaponTemp = spare1;
+                    weapon = null;
+                    spare1 = null;
+                    AddToInventory(newWeaponTemp);
+                    AddToInventory(oldWeaponTemp);
+                    break;
+                case InventoryType.TOOL:
+                    break;
+            }
+        }
+    }
+
+    public void SwapSpare2()
+    {
+        if (spare2 != null)
+        {
+
+        }
+
     }
 
     public Weapon GetWeapon()

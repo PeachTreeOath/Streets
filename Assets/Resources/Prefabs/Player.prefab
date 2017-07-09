@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 114218715786532686}
   - component: {fileID: 58314331627355246}
   - component: {fileID: 50001534063618488}
+  - component: {fileID: 114465253405067458}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -456,6 +457,17 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114465253405067458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1477838038348652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33cbce83f1a68c247a116469769cace8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114545602061083926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -494,9 +506,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024fab32aa75e8940b2c75702aebae79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNum: 0
   speed: 250
-  bulletSpawn: {fileID: 4430948681710794}
+  playerNum: 0
+  firePoint: {fileID: 0}
 --- !u!212 &212303848791927332
 SpriteRenderer:
   m_ObjectHideFlags: 1

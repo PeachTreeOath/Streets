@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class ItemInteractable : MonoBehaviour, IInteractable {
 
-    public IInventoryItem item;
-
     public void Interact(PlayerController player)
     {
-        bool equipped = player.EquipItem(item);
+        bool equipped = player.EquipItem(GetComponentInChildren<IInventoryItem>());
         if(equipped) Destroy(gameObject);
     }
 }

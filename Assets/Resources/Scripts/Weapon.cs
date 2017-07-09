@@ -46,13 +46,14 @@ public class Weapon : MonoBehaviour, IInventoryItem
         for (int i = 0; i < numBullets; i++)
         {
             GameObject bullet = Instantiate<GameObject>(ResourceLoader.instance.bulletFab, player.firePoint.position, player.firePoint.rotation);
-            Vector2 tempMousePos = mousePos;
+            Vector2 tempMousePos = mousePos*1000;
             if(spreadAngle != 0)
             {
                 float angle = UnityEngine.Random.Range(-spreadAngle, spreadAngle);
+                //TODO: Rotate doesnt work when mouse is close
                 tempMousePos = mousePos.Rotate(angle);
             }
-            bullet.GetComponent<Rigidbody2D>().velocity = Vector3.Normalize(mousePos - firePos) * bulletSpeed;
+            bullet.GetComponent<Rigidbody2D>().velocity = Vector3.Normalize(tempMousePos - firePos) * bulletSpeed;
             bullet.GetComponent<Bullet>().playerNum = player.playerNum;
             bulletList.Add(bullet);
         }
@@ -63,5 +64,15 @@ public class Weapon : MonoBehaviour, IInventoryItem
     public InventoryType GetInventoryType()
     {
         return InventoryType.WEAPON;
+    }
+
+    public Sprite GetItemSprite()
+    {
+        return GetComponent<SpriteRenderer>().sprite;
+    }
+
+    public void SetParent(Transform parent)
+    {
+        transform.SetParent(parent);
     }
 }
