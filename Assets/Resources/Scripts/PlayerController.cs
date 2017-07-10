@@ -69,7 +69,7 @@ public class PlayerController : NetworkBehaviour
         // Disable player controls if in vehicle
         if (currentVehicle != null)
         {
-            transform.position = currentVehicle.transform.position;
+            //transform.position = currentVehicle.transform.position;
             return;
         }
 
@@ -110,7 +110,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (currentVehicle != null)
         {
-        //    transform.position = currentVehicle.transform.position;
+           transform.position = currentVehicle.transform.position;
             return;
         }
     }
