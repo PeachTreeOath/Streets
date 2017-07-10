@@ -11,10 +11,13 @@ public class PlayerController : NetworkBehaviour
 
     public int playerNum;
     public Transform firePoint;
+    public VehicleInteractable currentVehicle;
 
     private Inventory inventory;
     private Rigidbody2D rBody;
-    private Collider2D mCollider;
+    private Collider2D mCollider; // Trigger
+    private Collider2D physicalCollider; // Non-Trigger
+    private SpriteRenderer spriteRenderer;
     private ContactFilter2D interactableFilter;
 
     public override void OnStartClient()
@@ -30,6 +33,8 @@ public class PlayerController : NetworkBehaviour
         inventory = GetComponent<Inventory>();
         rBody = GetComponent<Rigidbody2D>();
         mCollider = GetComponent<Collider2D>();
+        physicalCollider = transform.FindDeepChild("PhysicalCollider").GetComponent<Collider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         interactableFilter = new ContactFilter2D();
         interactableFilter.useTriggers = true;
 
@@ -49,6 +54,25 @@ public class PlayerController : NetworkBehaviour
             //transform.position = Vector2.Lerp(transform.position, syncPos, Time.deltaTime * lerpRate);
         }
 
+        if (Input.GetButtonDown("Interact"))
+        {
+            if (currentVehicle != null)
+            {
+                currentVehicle.ExitVehicle(this);
+            }
+            else
+            {
+                Interact();
+            }
+        }
+
+        // Disable player controls if in vehicle
+        if (currentVehicle != null)
+        {
+            transform.position = currentVehicle.transform.position;
+            return;
+        }
+
         if (Input.GetButton("Fire1"))
         {
             Weapon currWeapon = inventory.GetWeapon();
@@ -63,11 +87,6 @@ public class PlayerController : NetworkBehaviour
                     }
                 }
             }
-        }
-
-        if (Input.GetButtonDown("Interact"))
-        {
-            Interact();
         }
 
         if (Input.GetButtonDown("SwapSpare1"))
@@ -87,6 +106,15 @@ public class PlayerController : NetworkBehaviour
         rBody.velocity = circleVector * timeStep;
     }
 
+    void LateUpdate()
+    {
+        if (currentVehicle != null)
+        {
+        //    transform.position = currentVehicle.transform.position;
+            return;
+        }
+    }
+
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
@@ -97,6 +125,22 @@ public class PlayerController : NetworkBehaviour
     public bool EquipItem(IInventoryItem newItem)
     {
         return inventory.AddToInventory(newItem);
+    }
+
+    public void EnterVehicle(VehicleInteractable vehicle)
+    {
+        currentVehicle = vehicle;
+        transform.SetParent(vehicle.transform);
+        spriteRenderer.enabled = false;
+        physicalCollider.enabled = false;
+    }
+
+    public void ExitVehicle()
+    {
+        currentVehicle = null;
+        transform.SetParent(null);
+        spriteRenderer.enabled = true;
+        physicalCollider.enabled = true;
     }
 
     [Command]
@@ -125,7 +169,6 @@ public class PlayerController : NetworkBehaviour
 
     private void EquipStartingItems()
     {
-        Instantiate(ResourceLoader.instance.pistolPickupFab).GetComponent< IInteractable>().Interact(this);
+        Instantiate(ResourceLoader.instance.pistolPickupFab).GetComponent<IInteractable>().Interact(this);
     }
-
 }

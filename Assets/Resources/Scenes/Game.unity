@@ -212,6 +212,48 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9013e26bbf70da84091b83e7b9833f78, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &403180986
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4255422086729070, guid: 88c485174cea37243a7fa487f8741551, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -1.1633599
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255422086729070, guid: 88c485174cea37243a7fa487f8741551, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.9366069
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255422086729070, guid: 88c485174cea37243a7fa487f8741551, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255422086729070, guid: 88c485174cea37243a7fa487f8741551, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255422086729070, guid: 88c485174cea37243a7fa487f8741551, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255422086729070, guid: 88c485174cea37243a7fa487f8741551, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255422086729070, guid: 88c485174cea37243a7fa487f8741551, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4255422086729070, guid: 88c485174cea37243a7fa487f8741551, type: 2}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 88c485174cea37243a7fa487f8741551, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &512673645
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,6 +1081,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
 --- !u!4 &1428776999
 Transform:
   m_ObjectHideFlags: 1
