@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomMoveBehavior : MonoBehaviour
+public class MoveToRandomPointBehavior : MonoBehaviour
 {
 
     public float speed;
