@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RushBehavior : MonoBehaviour
+public class RushMoveBehavior : MonoBehaviour
 {
     public float speed;
 
